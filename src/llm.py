@@ -7,7 +7,7 @@ messages = [
     {"role":"system","content":system_instruction}
 ]
 
-def generate_document(messages, model="gpt-3.5-turbo", tempurature= 0):
+def ask_bot(messages, model="gpt-3.5-turbo", tempurature=0):
     response = client.chat.completions.create(
     model=model,
     messages= messages,
