@@ -1,5 +1,16 @@
+cd /D D:\SUBIR\LEARNING\GenAI\ChatBot\chainlit-chatbot-interface\LLM-Apps-with-Chainlit
+
 python -m venv .venv
 .venv\Scripts\Activate.ps1
+
+At all times during the execution you have to be inside .venv virtual environment.
+
+Step 1: Put the python packages in the requirements.text
+Step 2: Create the setup.py file
+Step 3: pip install -r requirements.txt
+The step 3 will run the setup.txt file.
+
+chainlit run app.py
 
 https://docs.chainlit.io/get-started/pure-python
 https://platform.openai.com/docs/guides/text-generation

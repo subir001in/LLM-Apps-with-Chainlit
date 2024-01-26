@@ -1,4 +1,7 @@
 chainlit
 openai
 python-dotenv
+langchain
+langchain-community
+pypdf
 -e .
