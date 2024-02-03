@@ -2,11 +2,10 @@
 
 import os
 import sys
-import pandas as pd
 
 from dotenv import load_dotenv,find_dotenv
 
-from src.helper import doc_Loader,doc_Split
+from src.helper import doc_Loader,doc_Split,doc_embeddings_vectorstores
 
 from openai import OpenAI
 OpenAI.api_key = os.environ.get('OPENAI_API_KEY')
@@ -23,15 +22,14 @@ print(f"Pages = {pages}")
 #print(len(pages))
 
 # 2- Split the Document
-df = pd.DataFrame()
+pageSplits = doc_Split(pages)
 
-docSplits = doc_Split(pages)
-
-for split in docSplits:
+for split in pageSplits:
     #df.add(split.page_content,split.metadata)
     print("\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n")
     print(split.page_content)
     #print(split.metadata)
 
 # 3- Vectorstores and Embeddings
+doc_embeddings_vectorstores(pageSplits)
     

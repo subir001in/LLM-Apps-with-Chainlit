@@ -1,5 +1,8 @@
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
+#from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain_openai.embeddings import OpenAIEmbeddings
+from langchain.vectorstores import chroma
 
 # 1 - PDF LOADER
 def doc_Loader(docList):
@@ -38,10 +41,10 @@ def doc_Split(pages):
     
     ------------------------------
     Parameters:
-        docList : Document
+        pages : Pages of the Document
     ------------------------------
 
-    Returns back pages as list of Document Objects.
+    Returns back page splits of Document Pages in Document format.
     Document(page_content='', metadata={'source': 'D:\\SUBIR\\LEARNING\\GenAI\\ChatBot\\chainlit-chatbot-interface\\LLM-Apps-with-Chainlit\\src\\Documents\\MSA.pdf', 'page': 0})
 
     """
@@ -55,11 +58,36 @@ def doc_Split(pages):
         #separators= ["\n\n","\n","."," ",""]
     )
 
-    docSplits= r_splitter.split_documents(pages)
+    pageSplits= r_splitter.split_documents(pages)
 
 
-    print(f"DocSplits =  {docSplits}")
+    #print(f"PageSplits =  {pageSplits}")
     print(f"Length of Pages: {len(pages)}")
-    print(f"Length of DocSplits: {len(docSplits)}")
+    print(f"Length of PageSplits: {len(pageSplits)}")
 
-    return docSplits
+    return pageSplits
+
+
+# 3 - EMBEDDINGS and VectorStores
+# Reference: 
+
+def doc_embeddings_vectorstores(pageSplits):
+    """
+    Create the embeddings for the documents splits and stores them into vectorstores. 
+    
+    ------------------------------
+    Parameters:
+        docList : Document
+    ------------------------------
+
+    Returns back pages as list of Document Objects.
+    Document(page_content='', metadata={'source': 'D:\\SUBIR\\LEARNING\\GenAI\\ChatBot\\chainlit-chatbot-interface\\LLM-Apps-with-Chainlit\\src\\Documents\\MSA.pdf', 'page': 0})
+
+    """
+
+    # Get the embeddings
+    print(f"pageSplits = {pageSplits}")
+    embedding = OpenAIEmbeddings()
+    pageSplitEmbeddings = [embedding.embed_documents(split.page_content) for split in pageSplits]
+    print(f"pageSplitEmbeddings = {pageSplitEmbeddings}")
+
