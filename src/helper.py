@@ -90,4 +90,5 @@ def doc_embeddings_vectorstores(pageSplits):
     embedding = OpenAIEmbeddings()
     pageSplitEmbeddings = [embedding.embed_documents(split.page_content) for split in pageSplits]
     print(f"pageSplitEmbeddings = {pageSplitEmbeddings}")
+    
 
